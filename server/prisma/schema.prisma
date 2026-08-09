@@ -1,0 +1,533 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                 Int                 @id @default(autoincrement())
+  name               String
+  email              String              @unique
+  createdAt          DateTime            @default(now())
+  isActive           Boolean             @default(true)
+  isEmailVerified    Boolean             @default(false)
+  lastLoginAt        DateTime?
+  organizationId     Int
+  passwordHash       String
+  updatedAt          DateTime            @updatedAt
+  breakdownActions   BreakdownAction[]
+  assignedBreakdowns BreakdownReport[]   @relation("AssignedTo")
+  reportedBreakdowns BreakdownReport[]   @relation("ReportedBy")
+  emailVerifications EmailVerification[]
+  notifications      Notification[]
+  pmSchedules        PMSchedule[]
+  pmTasks            PMTask[]
+  passwordResets     PasswordReset[]
+  organization       Organization        @relation(fields: [organizationId], references: [id])
+  department         UserDepartment?
+  roles              UserRole[]
+  userSession        UserSession[]
+
+  @@index([organizationId])
+}
+
+model Role {
+  id          Int          @id @default(autoincrement())
+  name        RoleType     @unique
+  invitations Invitation[]
+  users       UserRole[]
+}
+
+model UserRole {
+  id     Int  @id @default(autoincrement())
+  userId Int
+  roleId Int
+  role   Role @relation(fields: [roleId], references: [id])
+  user   User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, roleId])
+}
+
+model UserSession {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  refreshToken String
+  deviceInfo   String?
+  ipAddress    String?
+  userAgent    String?
+  isActive     Boolean  @default(true)
+  lastActiveAt DateTime @default(now())
+  createdAt    DateTime @default(now())
+  expiresAt    DateTime
+  jti          String   @unique
+  user         User     @relation(fields: [userId], references: [id])
+}
+
+model EmailVerification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  isUsed    Boolean  @default(false)
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model PasswordReset {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  isUsed    Boolean  @default(false)
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Invitation {
+  id             Int              @id @default(autoincrement())
+  organizationId Int
+  email          String
+  roleId         Int
+  departmentId   Int?
+  token          String           @unique
+  status         InvitationStatus @default(PENDING)
+  expiresAt      DateTime
+  createdAt      DateTime         @default(now())
+  department     Department?      @relation(fields: [departmentId], references: [id])
+  organization   Organization     @relation(fields: [organizationId], references: [id])
+  role           Role             @relation(fields: [roleId], references: [id])
+
+  @@unique([organizationId, email])
+  @@index([email])
+}
+
+model Organization {
+  id                 Int                 @id @default(autoincrement())
+  name               String
+  slug               String              @unique
+  industryType       IndustryType?
+  companySize        CompanySize?
+  country            String?
+  city               String?
+  logoUrl            String?
+  isActive           Boolean             @default(true)
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  logoPublicId       String?
+  onboardingStep     OnboardingStep      @default(ORGANIZATION)
+  breakdownReports   BreakdownReport[]
+  checklistTemplates ChecklistTemplate[]
+  departments        Department[]
+  equipments         Equipment[]
+  equipmentTypes     EquipmentType[]
+  invitations        Invitation[]
+  locations          Location[]
+  notifications      Notification[]
+  pmSchedules        PMSchedule[]
+  pmTasks            PMTask[]
+  users              User[]
+}
+
+model Location {
+  id             Int           @id @default(autoincrement())
+  organizationId Int
+  name           String
+  type           LocationType?
+  address        String
+  createdAt      DateTime      @default(now())
+  equipment      Equipment[]
+  organization   Organization  @relation(fields: [organizationId], references: [id])
+}
+
+model Department {
+  id             Int              @id @default(autoincrement())
+  organizationId Int
+  name           String
+  code           String
+  type           DepartmentType
+  createdAt      DateTime         @default(now())
+  organization   Organization     @relation(fields: [organizationId], references: [id])
+  equipment      Equipment[]
+  invitations    Invitation[]
+  users          UserDepartment[]
+
+  @@unique([organizationId, name])
+  @@unique([organizationId, code])
+}
+
+model UserDepartment {
+  id           Int        @id @default(autoincrement())
+  userId       Int        @unique
+  departmentId Int
+  department   Department @relation(fields: [departmentId], references: [id])
+  user         User       @relation(fields: [userId], references: [id])
+}
+
+model EquipmentType {
+  id                 Int                 @id @default(autoincrement())
+  organizationId     Int
+  name               String
+  code               String?
+  description        String?
+  isActive           Boolean             @default(true)
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  checklistTemplates ChecklistTemplate[]
+  equipments         Equipment[]
+  organization       Organization        @relation(fields: [organizationId], references: [id])
+
+  @@unique([organizationId, name])
+  @@unique([organizationId, code])
+}
+
+model Equipment {
+  id               Int               @id @default(autoincrement())
+  organizationId   Int
+  equipmentTypeId  Int
+  name             String
+  serialNumber     String?
+  status           EquipmentStatus   @default(ACTIVE)
+  installedDate    DateTime?
+  warrantyExpiry   DateTime?
+  manufacturer     String?
+  model            String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  code             String
+  departmentId     Int?
+  locationId       Int?
+  breakdownReports BreakdownReport[]
+  department       Department?       @relation(fields: [departmentId], references: [id])
+  equipmentType    EquipmentType     @relation(fields: [equipmentTypeId], references: [id])
+  location         Location?         @relation(fields: [locationId], references: [id])
+  organization     Organization      @relation(fields: [organizationId], references: [id])
+  pmSchedules      PMSchedule[]
+  pmTasks          PMTask[]
+
+  @@unique([organizationId, code])
+  @@index([organizationId])
+  @@index([equipmentTypeId])
+}
+
+model ChecklistTemplate {
+  id              Int                 @id @default(autoincrement())
+  organizationId  Int
+  equipmentTypeId Int
+  name            String
+  description     String?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  isActive        Boolean             @default(true)
+  parentId        Int?
+  version         Int                 @default(1)
+  items           ChecklistItem[]
+  equipmentType   EquipmentType       @relation(fields: [equipmentTypeId], references: [id])
+  organization    Organization        @relation(fields: [organizationId], references: [id])
+  parent          ChecklistTemplate?  @relation("TemplateVersion", fields: [parentId], references: [id])
+  childVersions   ChecklistTemplate[] @relation("TemplateVersion")
+  schedules       PMSchedule[]
+  tasks           PMTask[]
+
+  @@index([organizationId])
+  @@index([equipmentTypeId])
+  @@index([parentId])
+}
+
+model ChecklistItem {
+  id            Int                 @id @default(autoincrement())
+  templateId    Int
+  name          String
+  order         Int
+  expectedValue String?
+  createdAt     DateTime            @default(now())
+  isActive      Boolean             @default(true)
+  isRequired    Boolean             @default(true)
+  maxValue      Float?
+  minValue      Float?
+  options       Json?
+  type          ChecklistItemType
+  template      ChecklistTemplate   @relation(fields: [templateId], references: [id])
+  taskItems     TaskChecklistItem[]
+
+  @@unique([templateId, order])
+}
+
+model PMSchedule {
+  id              Int               @id @default(autoincrement())
+  organizationId  Int
+  equipmentId     Int
+  templateId      Int
+  frequencyType   FrequencyType
+  interval        Int
+  startDate       DateTime
+  nextDueDate     DateTime
+  assignedTo      Int
+  isActive        Boolean           @default(true)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  lastGeneratedAt DateTime?
+  assignee        User              @relation(fields: [assignedTo], references: [id])
+  equipment       Equipment         @relation(fields: [equipmentId], references: [id])
+  organization    Organization      @relation(fields: [organizationId], references: [id])
+  template        ChecklistTemplate @relation(fields: [templateId], references: [id])
+  pmTasks         PMTask[]
+
+  @@index([organizationId])
+  @@index([equipmentId])
+  @@index([nextDueDate])
+  @@index([assignedTo])
+}
+
+model PMTask {
+  id             Int                 @id @default(autoincrement())
+  organizationId Int
+  scheduleId     Int
+  equipmentId    Int
+  templateId     Int
+  assignedTo     Int
+  dueDate        DateTime
+  completedAt    DateTime?
+  status         TaskStatus          @default(PENDING)
+  priority       TaskPriority        @default(MEDIUM)
+  remarks        String?
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  title          String
+  assignee       User                @relation(fields: [assignedTo], references: [id])
+  equipment      Equipment           @relation(fields: [equipmentId], references: [id])
+  organization   Organization        @relation(fields: [organizationId], references: [id])
+  schedule       PMSchedule          @relation(fields: [scheduleId], references: [id])
+  template       ChecklistTemplate   @relation(fields: [templateId], references: [id])
+  checklistItems TaskChecklistItem[]
+
+  @@index([organizationId])
+  @@index([scheduleId])
+  @@index([dueDate])
+  @@index([assignedTo])
+  @@index([status])
+}
+
+model TaskChecklistItem {
+  id             Int               @id @default(autoincrement())
+  taskId         Int
+  name           String
+  order          Int
+  expectedValue  String?
+  actualValue    String?
+  status         ItemStatus?
+  createdAt      DateTime          @default(now())
+  maxValue       Float?
+  minValue       Float?
+  options        Json?
+  templateItemId Int
+  type           ChecklistItemType
+  updatedAt      DateTime          @updatedAt
+  task           PMTask            @relation(fields: [taskId], references: [id])
+  templateItem   ChecklistItem     @relation(fields: [templateItemId], references: [id])
+
+  @@index([taskId])
+  @@index([templateItemId])
+}
+
+model BreakdownReport {
+  id             Int               @id @default(autoincrement())
+  organizationId Int
+  equipmentId    Int
+  reportedBy     Int
+  assignedTo     Int?
+  title          String
+  rootCause      String?
+  description    String?
+  severity       BreakdownSeverity
+  status         BreakdownStatus   @default(OPEN)
+  reportedAt     DateTime          @default(now())
+  resolvedAt     DateTime?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  actions        BreakdownAction[]
+  assignee       User?             @relation("AssignedTo", fields: [assignedTo], references: [id])
+  equipment      Equipment         @relation(fields: [equipmentId], references: [id])
+  organization   Organization      @relation(fields: [organizationId], references: [id])
+  reporter       User              @relation("ReportedBy", fields: [reportedBy], references: [id])
+
+  @@index([organizationId])
+  @@index([equipmentId])
+  @@index([status])
+  @@index([assignedTo])
+}
+
+model BreakdownAction {
+  id          Int             @id @default(autoincrement())
+  breakdownId Int
+  performedBy Int
+  action      String
+  remarks     String?
+  createdAt   DateTime        @default(now())
+  breakdown   BreakdownReport @relation(fields: [breakdownId], references: [id])
+  user        User            @relation(fields: [performedBy], references: [id])
+
+  @@index([breakdownId])
+}
+
+model Notification {
+  id             Int              @id @default(autoincrement())
+  organizationId Int
+  userId         Int
+  type           NotificationType
+  title          String
+  message        String
+  referenceId    Int?
+  referenceType  ReferenceType?
+  isRead         Boolean          @default(false)
+  createdAt      DateTime         @default(now())
+  readAt         DateTime?
+  organization   Organization     @relation(fields: [organizationId], references: [id])
+  user           User             @relation(fields: [userId], references: [id])
+
+  @@index([organizationId, userId, isRead])
+}
+
+model AuditLog {
+  id             Int      @id @default(autoincrement())
+  organizationId Int
+  userId         Int
+  action         String
+  module         String
+  recordId       String
+  ipAddress      String?
+  createdAt      DateTime @default(now())
+}
+
+enum RoleType {
+  ADMIN
+  MANAGER
+  ENGINEER
+  TECHNICIAN
+  INSPECTOR
+}
+
+enum OnboardingStep {
+  ORGANIZATION
+  LOCATION
+  DEPARTMENT
+  USERS
+  COMPLETED
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+  REVOKED
+}
+
+enum LocationType {
+  PLANT
+  WAREHOUSE
+  OFFICE
+  FACILITY
+  OTHERS
+}
+
+enum DepartmentType {
+  MECHANICAL
+  ELECTRICAL
+  INSTRUMENTATION
+  CIVIL
+  OTHERS
+}
+
+enum IndustryType {
+  MANUFACTURING
+  CHEMICAL
+  OIL_GAS
+  FERTILIZER
+  GENERAL
+  OTHERS
+}
+
+enum CompanySize {
+  SMALL
+  MEDIUM
+  LARGE
+  ENTERPRISE
+}
+
+enum EquipmentStatus {
+  ACTIVE
+  INACTIVE
+  UNDER_MAINTENANCE
+  BREAKDOWN
+  DECOMMISSIONED
+}
+
+enum ChecklistItemType {
+  TEXT
+  NUMBER
+  BOOLEAN
+  SELECT
+}
+
+enum FrequencyType {
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  SKIPPED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum ItemStatus {
+  PENDING
+  OK
+  NOT_OK
+  SKIPPED
+}
+
+enum BreakdownSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum BreakdownStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum NotificationType {
+  SCHEDULE_ASSIGNED
+  TASK_ASSIGNED
+  TASK_OVERDUE
+  BREAKDOWN_RAISED
+  BREAKDOWN_ASSIGNED
+  BREAKDOWN_RESOLVED
+}
+
+enum ReferenceType {
+  TASK
+  BREAKDOWN
+  SCHEDULE
+}

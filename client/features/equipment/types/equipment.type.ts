@@ -1,0 +1,52 @@
+import { EquipmentStatus } from "@/types";
+import { EquipmentTypeParams } from "./equipment-type.type";
+
+export interface EquipmentRequest {
+  name: string;
+  code: string;
+  serialNumber?: string;
+  equipmentTypeId: number;
+  locationId: number;
+  departmentId: number;
+  installedDate?: string;
+  warrantyExpiry?: string;
+  manufacturer?: string;
+  model?: string;
+}
+
+export interface EquipmentData {
+  id: number;
+  name: string;
+  code: string;
+  status: EquipmentStatus;
+  equipmentType: string;
+  location: string;
+  department: string;
+}
+
+export interface EquipmentParams extends EquipmentTypeParams {
+  status?: EquipmentStatus;
+  department?: string;
+  location?: string;
+  type?: string;
+}
+
+export interface EquipmentByIdOption {
+  value: number;
+  label: string;
+}
+
+export interface EquipmentByIdData {
+  id: number;
+  name: string;
+  code: string;
+  serialNumber: string;
+  status: EquipmentStatus;
+  installedDate: string | null;
+  warrantyExpiry: string | null;
+  manufacturer: string;
+  model: string;
+  equipmentType: EquipmentByIdOption;
+  location: EquipmentByIdOption;
+  department: EquipmentByIdOption;
+}

@@ -1,0 +1,60 @@
+export const QUERY_KEYS = {
+  auth: {
+    me: ["me"],
+  },
+
+  metaData: {
+    meta: ["meta"],
+  },
+
+  organization: {
+    details: ["org-details"],
+    onboarding: ["org-onboarding"],
+    dropdown: ["org-dropdown"],
+  },
+
+  role: {
+    dropdown: ["role-dropdown"],
+  },
+
+  invitations: {
+    get_invitations: ["get-invitations"],
+    verify_invitation: ["verify-invitation"],
+  },
+
+  dashboard: {
+    get_dashboard: ["get-dashboard"],
+  },
+
+  equipment_type: {
+    get_list: ["get-equipment-type"],
+    get_dropdown: ["get-equipment-type-dropdown"],
+    get_by_id: ["get-equipment-type-by-id"],
+  },
+
+  equipment: {
+    get_list: ["get-equipment"],
+    by_id: ["equipment-by-id"],
+    dropdown_by_type: ["equipment-dropdown-type"],
+    dropdown: ["equipment-dropdown"],
+  },
+
+  checklist: {
+    list: ["checklist-list"],
+    id: ["checklist-by-id"],
+    dropdown_by_type: ["checklist-dropdown-type"],
+    dropdown: ["checklist-dropdown"],
+  },
+
+  schedule: {
+    list: ["schedule-list"],
+    id: ["schedule-id"],
+  },
+
+  task: {
+    list: ["task-list"],
+    id: ["task-id"],
+  },
+
+  user_dropdown: ["user-dropdown"],
+} as const;

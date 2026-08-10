@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict BIiichV6Nm5sMD2OcSr9D0ajZ6YrO1O74Q13Bwsq9nrwcH2ZeXSvVfT9GL0UJUG
+\restrict uAbO9j0CBTY6HpjMF3OiH9vShAWefZbTOUuyYRJ7sHuQnUH3VzdSrmyEnBgeHwY
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3
@@ -19,199 +19,6 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-ALTER TABLE ONLY maintix."User" DROP CONSTRAINT "User_organizationId_fkey";
-ALTER TABLE ONLY maintix."UserSession" DROP CONSTRAINT "UserSession_userId_fkey";
-ALTER TABLE ONLY maintix."UserRole" DROP CONSTRAINT "UserRole_userId_fkey";
-ALTER TABLE ONLY maintix."UserRole" DROP CONSTRAINT "UserRole_roleId_fkey";
-ALTER TABLE ONLY maintix."UserDepartment" DROP CONSTRAINT "UserDepartment_userId_fkey";
-ALTER TABLE ONLY maintix."UserDepartment" DROP CONSTRAINT "UserDepartment_departmentId_fkey";
-ALTER TABLE ONLY maintix."TaskChecklistItem" DROP CONSTRAINT "TaskChecklistItem_templateItemId_fkey";
-ALTER TABLE ONLY maintix."TaskChecklistItem" DROP CONSTRAINT "TaskChecklistItem_taskId_fkey";
-ALTER TABLE ONLY maintix."PasswordReset" DROP CONSTRAINT "PasswordReset_userId_fkey";
-ALTER TABLE ONLY maintix."PMTask" DROP CONSTRAINT "PMTask_templateId_fkey";
-ALTER TABLE ONLY maintix."PMTask" DROP CONSTRAINT "PMTask_scheduleId_fkey";
-ALTER TABLE ONLY maintix."PMTask" DROP CONSTRAINT "PMTask_organizationId_fkey";
-ALTER TABLE ONLY maintix."PMTask" DROP CONSTRAINT "PMTask_equipmentId_fkey";
-ALTER TABLE ONLY maintix."PMTask" DROP CONSTRAINT "PMTask_assignedTo_fkey";
-ALTER TABLE ONLY maintix."PMSchedule" DROP CONSTRAINT "PMSchedule_templateId_fkey";
-ALTER TABLE ONLY maintix."PMSchedule" DROP CONSTRAINT "PMSchedule_organizationId_fkey";
-ALTER TABLE ONLY maintix."PMSchedule" DROP CONSTRAINT "PMSchedule_equipmentId_fkey";
-ALTER TABLE ONLY maintix."PMSchedule" DROP CONSTRAINT "PMSchedule_assignedTo_fkey";
-ALTER TABLE ONLY maintix."Notification" DROP CONSTRAINT "Notification_userId_fkey";
-ALTER TABLE ONLY maintix."Notification" DROP CONSTRAINT "Notification_organizationId_fkey";
-ALTER TABLE ONLY maintix."Location" DROP CONSTRAINT "Location_organizationId_fkey";
-ALTER TABLE ONLY maintix."Invitation" DROP CONSTRAINT "Invitation_roleId_fkey";
-ALTER TABLE ONLY maintix."Invitation" DROP CONSTRAINT "Invitation_organizationId_fkey";
-ALTER TABLE ONLY maintix."Invitation" DROP CONSTRAINT "Invitation_departmentId_fkey";
-ALTER TABLE ONLY maintix."Equipment" DROP CONSTRAINT "Equipment_organizationId_fkey";
-ALTER TABLE ONLY maintix."Equipment" DROP CONSTRAINT "Equipment_locationId_fkey";
-ALTER TABLE ONLY maintix."Equipment" DROP CONSTRAINT "Equipment_equipmentTypeId_fkey";
-ALTER TABLE ONLY maintix."Equipment" DROP CONSTRAINT "Equipment_departmentId_fkey";
-ALTER TABLE ONLY maintix."EquipmentType" DROP CONSTRAINT "EquipmentType_organizationId_fkey";
-ALTER TABLE ONLY maintix."EmailVerification" DROP CONSTRAINT "EmailVerification_userId_fkey";
-ALTER TABLE ONLY maintix."Department" DROP CONSTRAINT "Department_organizationId_fkey";
-ALTER TABLE ONLY maintix."ChecklistTemplate" DROP CONSTRAINT "ChecklistTemplate_parentId_fkey";
-ALTER TABLE ONLY maintix."ChecklistTemplate" DROP CONSTRAINT "ChecklistTemplate_organizationId_fkey";
-ALTER TABLE ONLY maintix."ChecklistTemplate" DROP CONSTRAINT "ChecklistTemplate_equipmentTypeId_fkey";
-ALTER TABLE ONLY maintix."ChecklistItem" DROP CONSTRAINT "ChecklistItem_templateId_fkey";
-ALTER TABLE ONLY maintix."BreakdownReport" DROP CONSTRAINT "BreakdownReport_reportedBy_fkey";
-ALTER TABLE ONLY maintix."BreakdownReport" DROP CONSTRAINT "BreakdownReport_organizationId_fkey";
-ALTER TABLE ONLY maintix."BreakdownReport" DROP CONSTRAINT "BreakdownReport_equipmentId_fkey";
-ALTER TABLE ONLY maintix."BreakdownReport" DROP CONSTRAINT "BreakdownReport_assignedTo_fkey";
-ALTER TABLE ONLY maintix."BreakdownAction" DROP CONSTRAINT "BreakdownAction_performedBy_fkey";
-ALTER TABLE ONLY maintix."BreakdownAction" DROP CONSTRAINT "BreakdownAction_breakdownId_fkey";
-DROP INDEX maintix."User_organizationId_idx";
-DROP INDEX maintix."User_email_key";
-DROP INDEX maintix."UserSession_jti_key";
-DROP INDEX maintix."UserRole_userId_roleId_key";
-DROP INDEX maintix."UserDepartment_userId_key";
-DROP INDEX maintix."TaskChecklistItem_templateItemId_idx";
-DROP INDEX maintix."TaskChecklistItem_taskId_idx";
-DROP INDEX maintix."Role_name_key";
-DROP INDEX maintix."PasswordReset_userId_idx";
-DROP INDEX maintix."PasswordReset_token_key";
-DROP INDEX maintix."PasswordReset_expiresAt_idx";
-DROP INDEX maintix."PMTask_status_idx";
-DROP INDEX maintix."PMTask_scheduleId_idx";
-DROP INDEX maintix."PMTask_organizationId_idx";
-DROP INDEX maintix."PMTask_dueDate_idx";
-DROP INDEX maintix."PMTask_assignedTo_idx";
-DROP INDEX maintix."PMSchedule_organizationId_idx";
-DROP INDEX maintix."PMSchedule_nextDueDate_idx";
-DROP INDEX maintix."PMSchedule_equipmentId_idx";
-DROP INDEX maintix."PMSchedule_assignedTo_idx";
-DROP INDEX maintix."Organization_slug_key";
-DROP INDEX maintix."Notification_organizationId_userId_isRead_idx";
-DROP INDEX maintix."Invitation_token_key";
-DROP INDEX maintix."Invitation_organizationId_email_key";
-DROP INDEX maintix."Invitation_email_idx";
-DROP INDEX maintix."Equipment_organizationId_idx";
-DROP INDEX maintix."Equipment_organizationId_code_key";
-DROP INDEX maintix."Equipment_equipmentTypeId_idx";
-DROP INDEX maintix."EquipmentType_organizationId_name_key";
-DROP INDEX maintix."EquipmentType_organizationId_code_key";
-DROP INDEX maintix."EmailVerification_userId_idx";
-DROP INDEX maintix."EmailVerification_token_key";
-DROP INDEX maintix."EmailVerification_expiresAt_idx";
-DROP INDEX maintix."Department_organizationId_name_key";
-DROP INDEX maintix."Department_organizationId_code_key";
-DROP INDEX maintix."ChecklistTemplate_parentId_idx";
-DROP INDEX maintix."ChecklistTemplate_organizationId_idx";
-DROP INDEX maintix."ChecklistTemplate_equipmentTypeId_idx";
-DROP INDEX maintix."ChecklistItem_templateId_order_key";
-DROP INDEX maintix."BreakdownReport_status_idx";
-DROP INDEX maintix."BreakdownReport_organizationId_idx";
-DROP INDEX maintix."BreakdownReport_equipmentId_idx";
-DROP INDEX maintix."BreakdownReport_assignedTo_idx";
-DROP INDEX maintix."BreakdownAction_breakdownId_idx";
-ALTER TABLE ONLY maintix._prisma_migrations DROP CONSTRAINT _prisma_migrations_pkey;
-ALTER TABLE ONLY maintix."User" DROP CONSTRAINT "User_pkey";
-ALTER TABLE ONLY maintix."UserSession" DROP CONSTRAINT "UserSession_pkey";
-ALTER TABLE ONLY maintix."UserRole" DROP CONSTRAINT "UserRole_pkey";
-ALTER TABLE ONLY maintix."UserDepartment" DROP CONSTRAINT "UserDepartment_pkey";
-ALTER TABLE ONLY maintix."TaskChecklistItem" DROP CONSTRAINT "TaskChecklistItem_pkey";
-ALTER TABLE ONLY maintix."Role" DROP CONSTRAINT "Role_pkey";
-ALTER TABLE ONLY maintix."PasswordReset" DROP CONSTRAINT "PasswordReset_pkey";
-ALTER TABLE ONLY maintix."PMTask" DROP CONSTRAINT "PMTask_pkey";
-ALTER TABLE ONLY maintix."PMSchedule" DROP CONSTRAINT "PMSchedule_pkey";
-ALTER TABLE ONLY maintix."Organization" DROP CONSTRAINT "Organization_pkey";
-ALTER TABLE ONLY maintix."Notification" DROP CONSTRAINT "Notification_pkey";
-ALTER TABLE ONLY maintix."Location" DROP CONSTRAINT "Location_pkey";
-ALTER TABLE ONLY maintix."Invitation" DROP CONSTRAINT "Invitation_pkey";
-ALTER TABLE ONLY maintix."Equipment" DROP CONSTRAINT "Equipment_pkey";
-ALTER TABLE ONLY maintix."EquipmentType" DROP CONSTRAINT "EquipmentType_pkey";
-ALTER TABLE ONLY maintix."EmailVerification" DROP CONSTRAINT "EmailVerification_pkey";
-ALTER TABLE ONLY maintix."Department" DROP CONSTRAINT "Department_pkey";
-ALTER TABLE ONLY maintix."ChecklistTemplate" DROP CONSTRAINT "ChecklistTemplate_pkey";
-ALTER TABLE ONLY maintix."ChecklistItem" DROP CONSTRAINT "ChecklistItem_pkey";
-ALTER TABLE ONLY maintix."BreakdownReport" DROP CONSTRAINT "BreakdownReport_pkey";
-ALTER TABLE ONLY maintix."BreakdownAction" DROP CONSTRAINT "BreakdownAction_pkey";
-ALTER TABLE ONLY maintix."AuditLog" DROP CONSTRAINT "AuditLog_pkey";
-ALTER TABLE maintix."UserSession" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."UserRole" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."UserDepartment" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."User" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."TaskChecklistItem" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."Role" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."PasswordReset" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."PMTask" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."PMSchedule" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."Organization" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."Notification" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."Location" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."Invitation" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."EquipmentType" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."Equipment" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."EmailVerification" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."Department" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."ChecklistTemplate" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."ChecklistItem" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."BreakdownReport" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."BreakdownAction" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE maintix."AuditLog" ALTER COLUMN id DROP DEFAULT;
-DROP TABLE maintix._prisma_migrations;
-DROP SEQUENCE maintix."User_id_seq";
-DROP SEQUENCE maintix."UserSession_id_seq";
-DROP TABLE maintix."UserSession";
-DROP SEQUENCE maintix."UserRole_id_seq";
-DROP TABLE maintix."UserRole";
-DROP SEQUENCE maintix."UserDepartment_id_seq";
-DROP TABLE maintix."UserDepartment";
-DROP TABLE maintix."User";
-DROP SEQUENCE maintix."TaskChecklistItem_id_seq";
-DROP TABLE maintix."TaskChecklistItem";
-DROP SEQUENCE maintix."Role_id_seq";
-DROP TABLE maintix."Role";
-DROP SEQUENCE maintix."PasswordReset_id_seq";
-DROP TABLE maintix."PasswordReset";
-DROP SEQUENCE maintix."PMTask_id_seq";
-DROP TABLE maintix."PMTask";
-DROP SEQUENCE maintix."PMSchedule_id_seq";
-DROP TABLE maintix."PMSchedule";
-DROP SEQUENCE maintix."Organization_id_seq";
-DROP TABLE maintix."Organization";
-DROP SEQUENCE maintix."Notification_id_seq";
-DROP TABLE maintix."Notification";
-DROP SEQUENCE maintix."Location_id_seq";
-DROP TABLE maintix."Location";
-DROP SEQUENCE maintix."Invitation_id_seq";
-DROP TABLE maintix."Invitation";
-DROP SEQUENCE maintix."Equipment_id_seq";
-DROP SEQUENCE maintix."EquipmentType_id_seq";
-DROP TABLE maintix."EquipmentType";
-DROP TABLE maintix."Equipment";
-DROP SEQUENCE maintix."EmailVerification_id_seq";
-DROP TABLE maintix."EmailVerification";
-DROP SEQUENCE maintix."Department_id_seq";
-DROP TABLE maintix."Department";
-DROP SEQUENCE maintix."ChecklistTemplate_id_seq";
-DROP TABLE maintix."ChecklistTemplate";
-DROP SEQUENCE maintix."ChecklistItem_id_seq";
-DROP TABLE maintix."ChecklistItem";
-DROP SEQUENCE maintix."BreakdownReport_id_seq";
-DROP TABLE maintix."BreakdownReport";
-DROP SEQUENCE maintix."BreakdownAction_id_seq";
-DROP TABLE maintix."BreakdownAction";
-DROP SEQUENCE maintix."AuditLog_id_seq";
-DROP TABLE maintix."AuditLog";
-DROP TYPE maintix."TaskStatus";
-DROP TYPE maintix."TaskPriority";
-DROP TYPE maintix."RoleType";
-DROP TYPE maintix."ReferenceType";
-DROP TYPE maintix."OnboardingStep";
-DROP TYPE maintix."NotificationType";
-DROP TYPE maintix."LocationType";
-DROP TYPE maintix."ItemStatus";
-DROP TYPE maintix."InvitationStatus";
-DROP TYPE maintix."IndustryType";
-DROP TYPE maintix."FrequencyType";
-DROP TYPE maintix."EquipmentStatus";
-DROP TYPE maintix."DepartmentType";
-DROP TYPE maintix."CompanySize";
-DROP TYPE maintix."ChecklistItemType";
-DROP TYPE maintix."BreakdownStatus";
-DROP TYPE maintix."BreakdownSeverity";
-DROP SCHEMA maintix;
 --
 -- Name: maintix; Type: SCHEMA; Schema: -; Owner: -
 --
@@ -2839,6 +2646,45 @@ COPY maintix."AuditLog" (id, "organizationId", "userId", action, module, "record
 1412	3	3	LOGIN_SUCCESS	AUTH	3	::1	2026-08-07 08:05:08.23
 1413	3	3	LOGIN_SUCCESS	AUTH	3	::1	2026-08-07 08:46:12.593
 1414	3	3	LOGIN_SUCCESS	AUTH	3	::1	2026-08-07 09:03:49.522
+1415	3	3	LOGIN_SUCCESS	AUTH	3	::1	2026-08-07 14:42:05.334
+1416	3	3	LOGIN_SUCCESS	AUTH	3	::1	2026-08-07 14:55:13.816
+1417	3	3	LOGIN_SUCCESS	AUTH	3	::1	2026-08-07 15:12:51.624
+1418	3	3	LOGOUT_CURRENT_SESSION	AUTH	3	::1	2026-08-07 15:16:06.851
+1419	3	10	LOGIN_SUCCESS	AUTH	10	::1	2026-08-07 15:16:15.21
+1420	3	10	UPDATE_PMTASK	PM	329	::1	2026-08-07 15:16:33.38
+1421	3	10	UPDATE_PMTASK	PM	329	::1	2026-08-07 15:16:41.225
+1422	3	10	UPDATE_PMTASK	PM	329	::1	2026-08-07 15:16:50.267
+1423	3	10	UPDATE_PMTASK	PM	329	::1	2026-08-07 15:17:01.452
+1424	3	10	UPDATE_PMTASK	PM	329	::1	2026-08-07 15:17:12.572
+1425	3	10	UPDATE_PMTASK	PM	329	::1	2026-08-07 15:17:48.142
+1426	3	10	UPDATE_PMTASK	PM	329	::1	2026-08-07 15:19:25.489
+1427	3	10	UPDATE_PMTASK	PM	329	::1	2026-08-07 15:21:36.276
+1428	3	10	UPDATE_PMTASK	PM	329	::1	2026-08-07 15:21:37.787
+1429	3	3	LOGIN_SUCCESS	AUTH	3	::1	2026-08-07 15:37:22.127
+1430	3	10	UPDATE_PMTASK	PM	329	::1	2026-08-07 15:42:00.35
+1431	3	10	UPDATE_PMTASK	PM	328	::1	2026-08-07 15:46:54.428
+1432	3	10	UPDATE_PMTASK	PM	327	::1	2026-08-07 15:47:53.492
+1433	3	10	UPDATE_PMTASK	PM	328	::1	2026-08-07 15:48:17.357
+1434	3	10	UPDATE_PMTASK	PM	328	::1	2026-08-07 15:48:20.848
+1435	3	10	UPDATE_PMTASK	PM	328	::1	2026-08-07 15:48:25.347
+1436	3	10	UPDATE_PMTASK	PM	328	::1	2026-08-07 15:48:27.825
+1437	3	10	UPDATE_PMTASK	PM	328	::1	2026-08-07 15:48:34.605
+1438	3	10	COMPLETE_PMTASK	PM	329	::1	2026-08-07 16:06:20.806
+1439	3	10	UPDATE_PMTASK	PM	327	::1	2026-08-07 16:07:06.887
+1440	3	10	UPDATE_PMTASK	PM	327	::1	2026-08-07 16:07:11.559
+1441	3	10	UPDATE_PMTASK	PM	327	::1	2026-08-07 16:07:12.244
+1442	3	10	UPDATE_PMTASK	PM	327	::1	2026-08-07 16:07:16.793
+1443	3	10	UPDATE_PMTASK	PM	327	::1	2026-08-07 16:07:28.283
+1444	3	10	COMPLETE_PMTASK	PM	327	::1	2026-08-07 16:07:50.114
+1445	3	10	UPDATE_PMTASK	PM	326	::1	2026-08-07 16:16:42.709
+1446	3	10	UPDATE_PMTASK	PM	326	::1	2026-08-07 16:16:43.358
+1447	3	10	UPDATE_PMTASK	PM	326	::1	2026-08-07 16:16:44.366
+1448	3	10	UPDATE_PMTASK	PM	326	::1	2026-08-07 16:16:46.161
+1449	3	10	UPDATE_PMTASK	PM	326	::1	2026-08-07 16:16:46.967
+1450	3	10	UPDATE_PMTASK	PM	326	::1	2026-08-07 16:16:48.183
+1451	3	10	COMPLETE_PMTASK	PM	328	::1	2026-08-07 16:16:56.378
+1452	3	10	LOGOUT_CURRENT_SESSION	AUTH	10	::1	2026-08-07 16:29:12.17
+1453	3	3	LOGIN_SUCCESS	AUTH	3	::1	2026-08-07 16:29:25.906
 \.
 
 
@@ -3744,10 +3590,6 @@ COPY maintix."PMTask" (id, "organizationId", "scheduleId", "equipmentId", "templ
 323	3	15	7	56	10	2026-07-31 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.201	2026-08-06 11:51:11.201	Workstation Safety Inspection
 324	3	15	7	56	10	2026-08-01 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.205	2026-08-06 11:51:11.205	Workstation Safety Inspection
 325	3	15	7	56	10	2026-08-02 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.207	2026-08-06 11:51:11.207	Workstation Safety Inspection
-326	3	15	7	56	10	2026-08-03 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.209	2026-08-06 11:51:11.209	Workstation Safety Inspection
-327	3	15	7	56	10	2026-08-04 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.211	2026-08-06 11:51:11.211	Workstation Safety Inspection
-328	3	15	7	56	10	2026-08-05 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.213	2026-08-06 11:51:11.213	Workstation Safety Inspection
-329	3	15	7	56	10	2026-08-06 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.215	2026-08-06 11:51:11.215	Workstation Safety Inspection
 330	3	16	7	56	14	2026-07-05 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.217	2026-08-06 11:51:11.217	Workstation Safety Inspection
 331	3	16	7	56	14	2026-07-06 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.219	2026-08-06 11:51:11.219	Workstation Safety Inspection
 332	3	16	7	56	14	2026-07-07 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.221	2026-08-06 11:51:11.221	Workstation Safety Inspection
@@ -3767,6 +3609,9 @@ COPY maintix."PMTask" (id, "organizationId", "scheduleId", "equipmentId", "templ
 346	3	16	7	56	14	2026-07-21 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.257	2026-08-06 11:51:11.257	Workstation Safety Inspection
 347	3	16	7	56	14	2026-07-22 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.26	2026-08-06 11:51:11.26	Workstation Safety Inspection
 348	3	16	7	56	14	2026-07-23 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.263	2026-08-06 11:51:11.263	Workstation Safety Inspection
+327	3	15	7	56	10	2026-08-04 00:00:00	2026-08-07 16:07:50.111	COMPLETED	MEDIUM	\N	2026-08-06 11:51:11.211	2026-08-07 16:07:50.112	Workstation Safety Inspection
+326	3	15	7	56	10	2026-08-03 00:00:00	\N	IN_PROGRESS	MEDIUM	\N	2026-08-06 11:51:11.209	2026-08-07 16:16:42.705	Workstation Safety Inspection
+328	3	15	7	56	10	2026-08-05 00:00:00	2026-08-07 16:16:56.376	COMPLETED	MEDIUM	\N	2026-08-06 11:51:11.213	2026-08-07 16:16:56.376	Workstation Safety Inspection
 349	3	16	7	56	14	2026-07-24 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.265	2026-08-06 11:51:11.265	Workstation Safety Inspection
 350	3	16	7	56	14	2026-07-25 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.268	2026-08-06 11:51:11.268	Workstation Safety Inspection
 351	3	16	7	56	14	2026-07-26 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.271	2026-08-06 11:51:11.271	Workstation Safety Inspection
@@ -3781,6 +3626,7 @@ COPY maintix."PMTask" (id, "organizationId", "scheduleId", "equipmentId", "templ
 360	3	16	7	56	14	2026-08-04 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.297	2026-08-06 11:51:11.297	Workstation Safety Inspection
 361	3	16	7	56	14	2026-08-05 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.299	2026-08-06 11:51:11.299	Workstation Safety Inspection
 362	3	16	7	56	14	2026-08-06 00:00:00	\N	PENDING	MEDIUM	\N	2026-08-06 11:51:11.301	2026-08-06 11:51:11.301	Workstation Safety Inspection
+329	3	15	7	56	10	2026-08-06 00:00:00	2026-08-07 16:06:20.8	COMPLETED	MEDIUM	\N	2026-08-06 11:51:11.215	2026-08-07 16:06:20.802	Workstation Safety Inspection
 \.
 
 
@@ -5624,30 +5470,6 @@ COPY maintix."TaskChecklistItem" (id, "taskId", name, "order", "expectedValue", 
 1929	325	Power supply stable	4	true	\N	\N	2026-08-06 11:51:11.207	\N	\N	125	BOOLEAN	2026-08-06 11:51:11.207	null
 1930	325	Visible wear or damage	5	false	\N	\N	2026-08-06 11:51:11.207	\N	\N	126	BOOLEAN	2026-08-06 11:51:11.207	null
 1931	325	Inspector notes	6	\N	\N	\N	2026-08-06 11:51:11.207	\N	\N	127	TEXT	2026-08-06 11:51:11.207	null
-1932	326	Emergency access clear	1	true	\N	\N	2026-08-06 11:51:11.209	\N	\N	122	BOOLEAN	2026-08-06 11:51:11.209	null
-1933	326	Ambient temperature	2	\N	\N	\N	2026-08-06 11:51:11.209	35	18	123	NUMBER	2026-08-06 11:51:11.209	null
-1934	326	Indicator status	3	NORMAL	\N	\N	2026-08-06 11:51:11.209	\N	\N	124	SELECT	2026-08-06 11:51:11.209	["NORMAL", "WARNING", "CRITICAL"]
-1935	326	Power supply stable	4	true	\N	\N	2026-08-06 11:51:11.209	\N	\N	125	BOOLEAN	2026-08-06 11:51:11.209	null
-1936	326	Visible wear or damage	5	false	\N	\N	2026-08-06 11:51:11.209	\N	\N	126	BOOLEAN	2026-08-06 11:51:11.209	null
-1937	326	Inspector notes	6	\N	\N	\N	2026-08-06 11:51:11.209	\N	\N	127	TEXT	2026-08-06 11:51:11.209	null
-1938	327	Emergency access clear	1	true	\N	\N	2026-08-06 11:51:11.211	\N	\N	122	BOOLEAN	2026-08-06 11:51:11.211	null
-1939	327	Ambient temperature	2	\N	\N	\N	2026-08-06 11:51:11.211	35	18	123	NUMBER	2026-08-06 11:51:11.211	null
-1940	327	Indicator status	3	NORMAL	\N	\N	2026-08-06 11:51:11.211	\N	\N	124	SELECT	2026-08-06 11:51:11.211	["NORMAL", "WARNING", "CRITICAL"]
-1941	327	Power supply stable	4	true	\N	\N	2026-08-06 11:51:11.211	\N	\N	125	BOOLEAN	2026-08-06 11:51:11.211	null
-1942	327	Visible wear or damage	5	false	\N	\N	2026-08-06 11:51:11.211	\N	\N	126	BOOLEAN	2026-08-06 11:51:11.211	null
-1943	327	Inspector notes	6	\N	\N	\N	2026-08-06 11:51:11.211	\N	\N	127	TEXT	2026-08-06 11:51:11.211	null
-1944	328	Emergency access clear	1	true	\N	\N	2026-08-06 11:51:11.213	\N	\N	122	BOOLEAN	2026-08-06 11:51:11.213	null
-1945	328	Ambient temperature	2	\N	\N	\N	2026-08-06 11:51:11.213	35	18	123	NUMBER	2026-08-06 11:51:11.213	null
-1946	328	Indicator status	3	NORMAL	\N	\N	2026-08-06 11:51:11.213	\N	\N	124	SELECT	2026-08-06 11:51:11.213	["NORMAL", "WARNING", "CRITICAL"]
-1947	328	Power supply stable	4	true	\N	\N	2026-08-06 11:51:11.213	\N	\N	125	BOOLEAN	2026-08-06 11:51:11.213	null
-1948	328	Visible wear or damage	5	false	\N	\N	2026-08-06 11:51:11.213	\N	\N	126	BOOLEAN	2026-08-06 11:51:11.213	null
-1949	328	Inspector notes	6	\N	\N	\N	2026-08-06 11:51:11.213	\N	\N	127	TEXT	2026-08-06 11:51:11.213	null
-1950	329	Emergency access clear	1	true	\N	\N	2026-08-06 11:51:11.215	\N	\N	122	BOOLEAN	2026-08-06 11:51:11.215	null
-1951	329	Ambient temperature	2	\N	\N	\N	2026-08-06 11:51:11.215	35	18	123	NUMBER	2026-08-06 11:51:11.215	null
-1952	329	Indicator status	3	NORMAL	\N	\N	2026-08-06 11:51:11.215	\N	\N	124	SELECT	2026-08-06 11:51:11.215	["NORMAL", "WARNING", "CRITICAL"]
-1953	329	Power supply stable	4	true	\N	\N	2026-08-06 11:51:11.215	\N	\N	125	BOOLEAN	2026-08-06 11:51:11.215	null
-1954	329	Visible wear or damage	5	false	\N	\N	2026-08-06 11:51:11.215	\N	\N	126	BOOLEAN	2026-08-06 11:51:11.215	null
-1955	329	Inspector notes	6	\N	\N	\N	2026-08-06 11:51:11.215	\N	\N	127	TEXT	2026-08-06 11:51:11.215	null
 1956	330	Emergency access clear	1	true	\N	\N	2026-08-06 11:51:11.217	\N	\N	122	BOOLEAN	2026-08-06 11:51:11.217	null
 1957	330	Ambient temperature	2	\N	\N	\N	2026-08-06 11:51:11.217	35	18	123	NUMBER	2026-08-06 11:51:11.217	null
 1958	330	Indicator status	3	NORMAL	\N	\N	2026-08-06 11:51:11.217	\N	\N	124	SELECT	2026-08-06 11:51:11.217	["NORMAL", "WARNING", "CRITICAL"]
@@ -5660,6 +5482,27 @@ COPY maintix."TaskChecklistItem" (id, "taskId", name, "order", "expectedValue", 
 1965	331	Power supply stable	4	true	\N	\N	2026-08-06 11:51:11.219	\N	\N	125	BOOLEAN	2026-08-06 11:51:11.219	null
 1966	331	Visible wear or damage	5	false	\N	\N	2026-08-06 11:51:11.219	\N	\N	126	BOOLEAN	2026-08-06 11:51:11.219	null
 1967	331	Inspector notes	6	\N	\N	\N	2026-08-06 11:51:11.219	\N	\N	127	TEXT	2026-08-06 11:51:11.219	null
+1951	329	Ambient temperature	2	\N	10	NOT_OK	2026-08-06 11:51:11.215	35	18	123	NUMBER	2026-08-07 15:17:12.57	null
+1952	329	Indicator status	3	NORMAL	WARNING	NOT_OK	2026-08-06 11:51:11.215	\N	\N	124	SELECT	2026-08-07 15:17:48.139	["NORMAL", "WARNING", "CRITICAL"]
+1955	329	Inspector notes	6	\N	I noticed	\N	2026-08-06 11:51:11.215	\N	\N	127	TEXT	2026-08-07 15:19:25.486	null
+1939	327	Ambient temperature	2	\N	67	NOT_OK	2026-08-06 11:51:11.211	35	18	123	NUMBER	2026-08-07 15:47:53.488	null
+1954	329	Visible wear or damage	5	false	true	NOT_OK	2026-08-06 11:51:11.215	\N	\N	126	BOOLEAN	2026-08-07 15:21:37.785	null
+1953	329	Power supply stable	4	true	true	OK	2026-08-06 11:51:11.215	\N	\N	125	BOOLEAN	2026-08-07 15:42:00.346	null
+1945	328	Ambient temperature	2	\N	30	OK	2026-08-06 11:51:11.213	35	18	123	NUMBER	2026-08-07 15:48:17.353	null
+1946	328	Indicator status	3	NORMAL	CRITICAL	NOT_OK	2026-08-06 11:51:11.213	\N	\N	124	SELECT	2026-08-07 15:48:20.846	["NORMAL", "WARNING", "CRITICAL"]
+1947	328	Power supply stable	4	true	true	OK	2026-08-06 11:51:11.213	\N	\N	125	BOOLEAN	2026-08-07 15:48:25.345	null
+1948	328	Visible wear or damage	5	false	false	OK	2026-08-06 11:51:11.213	\N	\N	126	BOOLEAN	2026-08-07 15:48:27.824	null
+1949	328	Inspector notes	6	\N	Entered	\N	2026-08-06 11:51:11.213	\N	\N	127	TEXT	2026-08-07 15:48:34.602	null
+1938	327	Emergency access clear	1	true	false	NOT_OK	2026-08-06 11:51:11.211	\N	\N	122	BOOLEAN	2026-08-07 16:07:06.885	null
+1941	327	Power supply stable	4	true	true	OK	2026-08-06 11:51:11.211	\N	\N	125	BOOLEAN	2026-08-07 16:07:12.242	null
+1942	327	Visible wear or damage	5	false	true	NOT_OK	2026-08-06 11:51:11.211	\N	\N	126	BOOLEAN	2026-08-07 16:07:16.791	null
+1943	327	Inspector notes	6	\N	Inspected	\N	2026-08-06 11:51:11.211	\N	\N	127	TEXT	2026-08-07 16:07:28.282	null
+1937	326	Inspector notes	6	\N	Noticed	\N	2026-08-06 11:51:11.209	\N	\N	127	TEXT	2026-08-07 16:16:42.7	null
+1936	326	Visible wear or damage	5	false	false	OK	2026-08-06 11:51:11.209	\N	\N	126	BOOLEAN	2026-08-07 16:16:43.356	null
+1935	326	Power supply stable	4	true	true	OK	2026-08-06 11:51:11.209	\N	\N	125	BOOLEAN	2026-08-07 16:16:44.364	null
+1934	326	Indicator status	3	NORMAL	NORMAL	OK	2026-08-06 11:51:11.209	\N	\N	124	SELECT	2026-08-07 16:16:46.159	["NORMAL", "WARNING", "CRITICAL"]
+1933	326	Ambient temperature	2	\N	69	NOT_OK	2026-08-06 11:51:11.209	35	18	123	NUMBER	2026-08-07 16:16:46.965	null
+1932	326	Emergency access clear	1	true	false	NOT_OK	2026-08-06 11:51:11.209	\N	\N	122	BOOLEAN	2026-08-07 16:16:48.182	null
 1968	332	Emergency access clear	1	true	\N	\N	2026-08-06 11:51:11.221	\N	\N	122	BOOLEAN	2026-08-06 11:51:11.221	null
 1969	332	Ambient temperature	2	\N	\N	\N	2026-08-06 11:51:11.221	35	18	123	NUMBER	2026-08-06 11:51:11.221	null
 1970	332	Indicator status	3	NORMAL	\N	\N	2026-08-06 11:51:11.221	\N	\N	124	SELECT	2026-08-06 11:51:11.221	["NORMAL", "WARNING", "CRITICAL"]
@@ -5846,6 +5689,9 @@ COPY maintix."TaskChecklistItem" (id, "taskId", name, "order", "expectedValue", 
 2151	362	Power supply stable	4	true	\N	\N	2026-08-06 11:51:11.301	\N	\N	125	BOOLEAN	2026-08-06 11:51:11.301	null
 2152	362	Visible wear or damage	5	false	\N	\N	2026-08-06 11:51:11.301	\N	\N	126	BOOLEAN	2026-08-06 11:51:11.301	null
 2153	362	Inspector notes	6	\N	\N	\N	2026-08-06 11:51:11.301	\N	\N	127	TEXT	2026-08-06 11:51:11.301	null
+1950	329	Emergency access clear	1	true	true	OK	2026-08-06 11:51:11.215	\N	\N	122	BOOLEAN	2026-08-07 15:17:01.448	null
+1944	328	Emergency access clear	1	true	false	NOT_OK	2026-08-06 11:51:11.213	\N	\N	122	BOOLEAN	2026-08-07 15:46:54.422	null
+1940	327	Indicator status	3	NORMAL	NORMAL	OK	2026-08-06 11:51:11.211	\N	\N	124	SELECT	2026-08-07 16:07:11.557	["NORMAL", "WARNING", "CRITICAL"]
 \.
 
 
@@ -8744,6 +8590,86 @@ COPY maintix."UserSession" (id, "userId", "refreshToken", "deviceInfo", "ipAddre
 3548	3	$2b$10$/C744SO5DhTPA7IzXT8fUuU4.BFDA7mwBJP0NrhQEMPhXzOPPCzHq	\N	\N	\N	f	2026-08-07 11:51:56.89	2026-08-07 11:51:56.89	2026-08-14 11:51:56.888	adff6033-6a1f-48c5-8f0e-f169b6f98966
 3549	3	$2b$10$wBGXu1kEW.yIcZ26cyQPpO.8/jlfuPuFmqIRR6B789bFIraO2wAxi	\N	\N	\N	f	2026-08-07 11:52:08.075	2026-08-07 11:52:08.075	2026-08-14 11:52:08.075	2a238383-1c67-4c76-a3cc-0711ba052078
 3550	3	$2b$10$Nvi9iVM0LinMY0uYAEIKQuuVijxlQDEw.bXftFGWIF7UeGXopil3S	\N	\N	\N	t	2026-08-07 11:52:31.707	2026-08-07 11:52:31.707	2026-08-14 11:52:31.707	57e20b24-446b-4623-adfa-e3af05c03803
+3551	3	$2b$10$0bbvzQPRlc25I0lHB.WIoOvydw7.pDgp/D9qV8AH3kbAUXNIh.ah.	Chrome on Windows 10	::1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36	f	2026-08-07 14:42:05.32	2026-08-07 14:42:05.32	2026-08-14 14:42:05.305	93e7a9ab-f5bf-40b4-b49c-e21d75fbe1d6
+3552	3	$2b$10$lotFVNuXG7pyNWjEz2VK9OIishmIzg1QlMcDl/970sL5b0LLXiKre	\N	\N	\N	f	2026-08-07 14:42:12.71	2026-08-07 14:42:12.71	2026-08-14 14:42:12.708	d6fdee17-90a4-4fcd-b540-963bf1d445e9
+3555	3	$2b$10$zPxUpI7l.jTYHkTxame.gO8UPKFSNUe1JljGd4hAKA9gljaQ2oytW	\N	\N	\N	f	2026-08-07 14:46:32.836	2026-08-07 14:46:32.836	2026-08-14 14:46:32.836	a8afb9a6-dfe1-4bc3-80fa-e5c1e93612f3
+3558	3	$2b$10$tnN6kAdt/l1T7PaByPunXuLuedtUm98GVrfaax32V2iMpf9bAPVT6	\N	\N	\N	f	2026-08-07 14:51:49.688	2026-08-07 14:51:49.688	2026-08-14 14:51:49.687	1878992c-53e5-48f0-b040-8857eef4a17e
+3567	3	$2b$10$riq0px.DYLqktf3yAjOYdeiwABO5ZpxgLj0p9W2b5p0YiRaeTBFFW	\N	\N	\N	f	2026-08-07 15:08:51.928	2026-08-07 15:08:51.928	2026-08-14 15:08:51.927	1749431f-24cc-47fe-809f-5774f3e48bbe
+3630	3	$2b$10$73a9XGgk2SW08nEv63yRUeN/4NR4EzILY6NncMEEU39tkV0t4tiVu	\N	\N	\N	t	2026-08-07 17:27:35.224	2026-08-07 17:27:35.224	2026-08-14 17:27:35.209	63bafeaa-bf1d-407e-94f2-83e9d544561f
+3553	3	$2b$10$0nuHa0xpHsyTfZjZlnMAmOprr4CS87.YLtEZFLK6VRGwZ2ZZNhw7.	\N	\N	\N	f	2026-08-07 14:44:49.376	2026-08-07 14:44:49.376	2026-08-14 14:44:49.375	56419a0d-abac-4efc-bb64-d9165133a08e
+3556	3	$2b$10$Eb/POF6Nj191fzzXcFHHLeurl6kmpFWyXcfFrNRWDVX7s784NzsES	\N	\N	\N	f	2026-08-07 14:48:17.009	2026-08-07 14:48:17.009	2026-08-14 14:48:17.008	b0dbf8ca-8e77-44d7-8ca5-7a2bcfcd2558
+3559	3	$2b$10$f2.emQ8aan/33JpsfJfu/OOo2TZ/6eAlrXJDYafgsWodxY.jB62Bq	\N	\N	\N	f	2026-08-07 14:52:07.062	2026-08-07 14:52:07.062	2026-08-14 14:52:07.061	478ae508-60b9-473c-afb1-a5149b060a96
+3562	3	$2b$10$fp5Iy5T2gcPqfMv3EXbAtuYE4hVUUJlJBQ9mNvhBanQ.gD9mXFxOK	\N	\N	\N	f	2026-08-07 14:58:57.988	2026-08-07 14:58:57.988	2026-08-14 14:58:57.988	022b5945-9b38-4d8d-9ec7-29c171b91f27
+3564	3	$2b$10$tZ88igO/JZRCMx3vOJ7rUu7Ij8bHx0Fd3vS7MGva9IMlXoOHN0qi6	\N	\N	\N	f	2026-08-07 15:06:41.559	2026-08-07 15:06:41.559	2026-08-14 15:06:41.559	6cd71123-153a-4daa-998c-da8a9cbf0aa6
+3565	3	$2b$10$oDBEkNsyZ444PcPMedawY.gbocsKDr874wTWiyznXmYdSfA/mn8Im	\N	\N	\N	f	2026-08-07 15:07:24.994	2026-08-07 15:07:24.994	2026-08-14 15:07:24.994	6eca2776-c249-420b-baa1-8f6851152bdd
+3561	3	$2b$10$VaQ0TMcFOGZtV5Qz83Cec.76BqqQ8F/ypuEKHCvUUII9QTF.iul2u	PostmanRuntime/7.56.0	::1	PostmanRuntime/7.56.0	t	2026-08-07 15:08:53.644	2026-08-07 14:55:13.803	2026-08-14 14:55:13.798	ddf14ab5-365c-4f9f-88ac-1531195eeec7
+3570	3	$2b$10$d1HBMXlc/YxJAOQV14GqBeY1ky/Gv6KLqNaEAO0mAy1ruedXoSTeG	PostmanRuntime/7.56.0	::1	PostmanRuntime/7.56.0	t	2026-08-07 15:12:51.613	2026-08-07 15:12:51.613	2026-08-14 15:12:51.608	aff5a998-8267-4026-9632-44adec437420
+3571	3	$2b$10$thPW97YY6Ept2CpWYu7KouiPcpBMws6RY.8HWui9NMF5FlGCojO0G	\N	\N	\N	f	2026-08-07 15:15:45.385	2026-08-07 15:15:45.385	2026-08-14 15:15:45.384	a66adc46-88f0-4925-99f7-bffa0439f71d
+3574	10	$2b$10$8./rDGRLnygEwQovQrlK3eth3Bzh8ET4iRFyKGoUneNiQ0By2f3iO	\N	\N	\N	f	2026-08-07 15:20:53.006	2026-08-07 15:20:53.006	2026-08-14 15:20:53.006	f55c0e19-272a-4f69-b664-e3795dbc1112
+3608	10	$2b$10$yS6jUJ4/Zv/lnSDfqAvzveaHV4DSIDd/UXWVa50gXtMOkgrSWTY0u	\N	\N	\N	f	2026-08-07 16:08:02.823	2026-08-07 16:06:55.547	2026-08-14 16:06:55.547	ed56eed4-0ae0-4560-9a77-6068c352288a
+3575	10	$2b$10$KKa6TWFv/X/uv3zAEJDaXOe6sWKBHY1NgKhoyv06Q52PQDTcs1QOC	\N	\N	\N	f	2026-08-07 15:26:20.498	2026-08-07 15:22:00.841	2026-08-14 15:22:00.84	814893ab-236f-4db4-866c-f60758f1d03c
+3577	10	$2b$10$pymQIa3rlXI7ylOsmh377uj0WjkFhDAQt8OFINSkIKGTgC1MjBS9G	\N	\N	\N	f	2026-08-07 15:35:51.836	2026-08-07 15:35:51.836	2026-08-14 15:35:51.836	1dc48ee7-ec7a-44ab-a8e6-1e3014cc6f20
+3578	10	$2b$10$TWGrqsoCoghCtxKrfxY0qe/21JoxF3A092qRWZeeXcIDp2TPjzWmK	\N	\N	\N	f	2026-08-07 15:36:23.608	2026-08-07 15:36:23.608	2026-08-14 15:36:23.607	b013f97e-71e6-4456-81e5-4e439e45cbaf
+3581	3	$2b$10$4FiJR3VLNt2Yl7r7..3eZ.RbxDy.YVHC0JbYEXsaGHUFPg5h81vR2	PostmanRuntime/7.56.0	::1	PostmanRuntime/7.56.0	t	2026-08-07 15:37:22.121	2026-08-07 15:37:22.121	2026-08-14 15:37:22.121	e7354e9d-460b-4002-b321-156191263fdf
+3583	10	$2b$10$leAW9gto7CFBXkpnGCjiRumbFNDCnAnj5KTOB3bj8DeiM9VVp/72q	\N	\N	\N	f	2026-08-07 15:40:46.48	2026-08-07 15:40:46.48	2026-08-14 15:40:46.48	3f793712-c66d-4e32-b451-f65c7ae475ff
+3584	10	$2b$10$sAJBGpewKvjZOqleHRm19ehhIHciHyogZRX72yUy9ZdYmSt096NUi	\N	\N	\N	f	2026-08-07 15:41:03.959	2026-08-07 15:41:03.959	2026-08-14 15:41:03.959	8514fbe1-b8d1-42a8-9ec9-83640b00b498
+3586	10	$2b$10$dw7HP2V28EMRq09DlOlvc.kBKA9dRqeXOoVBhgm/ghayL/mgl55ni	\N	\N	\N	f	2026-08-07 15:46:06.42	2026-08-07 15:44:41.064	2026-08-14 15:44:41.064	bc94bd43-64d4-4587-a1d6-6e49872baa74
+3588	10	$2b$10$ALPYjOq1/K6UujCgnEQ6RuB1B9XLRxg.Cw9BPED1cqFOW4gFjUAeW	\N	\N	\N	f	2026-08-07 15:49:44.82	2026-08-07 15:49:44.82	2026-08-14 15:49:44.82	fae9a12e-c89e-413e-bb0d-705c0e2d15b1
+3589	10	$2b$10$5Z4g2xlt9uJ7mxfrqevliesm4z.VCg1akW5N2G2EbFhsIbZs412vW	\N	\N	\N	f	2026-08-07 15:50:43.237	2026-08-07 15:50:43.237	2026-08-14 15:50:43.236	8ef95668-a48c-4ee8-9e48-be60a9773a0a
+3591	10	$2b$10$EIcFwypTcwoNK.0jOndTz.duGE/NEHWNbOuXmi50LuaMSbCUAj7gC	\N	\N	\N	f	2026-08-07 15:51:25.12	2026-08-07 15:51:25.12	2026-08-14 15:51:25.12	873d5c20-f1a3-4acb-b002-708ba2aaa586
+3610	10	$2b$10$sdJJA3S8bU/jU3.4cwB/7eKPJzbPHBpHl064SevGKIi5XMJCb82ji	\N	\N	\N	f	2026-08-07 16:14:38.23	2026-08-07 16:14:38.23	2026-08-14 16:14:38.23	11db932e-181a-4131-bba4-6a32aacb3e86
+3592	10	$2b$10$2AXcLfMgHlXuaPSZSEXFWev2ySpL/qNpq/EsXSr3mUDXFe81d/nKq	\N	\N	\N	f	2026-08-07 15:53:12.736	2026-08-07 15:52:12.276	2026-08-14 15:52:12.276	c0c41cdb-e95f-42b6-88ff-476732b0f508
+3596	10	$2b$10$HAS0bG3NRDd2JqU9bhmf9OtP01bIWc.mKcxe57BIsAyO8yFedh2k.	\N	\N	\N	f	2026-08-07 15:54:56.541	2026-08-07 15:54:56.541	2026-08-14 15:54:56.54	93e7d26c-67e6-467f-93e9-027a518a8380
+3597	10	$2b$10$dGQ.zkrMoiwgcxJ6XRy8MOPpo2YCi9UZGv7ts/mMTOyCZ5.UBp/Ni	\N	\N	\N	f	2026-08-07 15:55:11.636	2026-08-07 15:55:11.636	2026-08-14 15:55:11.636	44108b09-62e8-463e-9550-66e3e3bb78f1
+3603	10	$2b$10$dvYfVcQe9GFMi1A3ZaB11O9JnQwb5i6.9IjtsCm4wfKrmXrafzoV.	\N	\N	\N	f	2026-08-07 15:56:05.36	2026-08-07 15:56:05.36	2026-08-14 15:56:05.36	fd3255ca-e2cf-4f04-9af9-8fdf3114db2b
+3604	10	$2b$10$b5C3Eo/QJ0HZLxeIps1ZbOy2OzXxi36wttx0CowwHODjoeaNB8f62	\N	\N	\N	f	2026-08-07 15:56:30.998	2026-08-07 15:56:30.998	2026-08-14 15:56:30.998	c9b79f7f-a0ed-4590-a208-cebbd7faeab0
+3606	10	$2b$10$DMDBDeyNjC8/AcTzIm2k6ud1g2EZC6ar7ZVlx7MTF85Ce27zH.WLS	\N	\N	\N	f	2026-08-07 15:58:11.33	2026-08-07 15:57:09.377	2026-08-14 15:57:09.377	ea4ba0d4-73e6-4244-9576-6a7bfec4394c
+3611	10	$2b$10$DW1E.TkyB9tN4.X9DBKSfuKJ4qjaXfM.8S7ur5JI5.3Koujo6Jv7W	\N	\N	\N	f	2026-08-07 16:14:41.53	2026-08-07 16:14:41.53	2026-08-14 16:14:41.529	344b9837-624b-45fc-9485-d2c07741c164
+3627	3	$2b$10$HZgNBtIb.9SJ0EC3pWrBr.vYB3QbP13RtsrDa/zN7JXQsH.3L2mTK	\N	\N	\N	f	2026-08-07 16:50:45.116	2026-08-07 16:50:45.116	2026-08-14 16:50:45.116	40e0fda3-4a36-4fb4-a299-eb0f9b9154b9
+3614	10	$2b$10$Hs.5yJ/DjG1Bms3MDc0iZeazVcdnKyuMri2xnEsMcZjIPHsYesmiO	\N	\N	\N	f	2026-08-07 16:20:42.784	2026-08-07 16:15:00.797	2026-08-14 16:15:00.797	c144b21c-aa48-44c1-94db-d4ce253ba3f2
+3616	10	$2b$10$ALvHi0ue9Hkasp/VOGJL7uKD8EcgYpu0t2h1Td82TdmrfY6bIY/2u	\N	\N	\N	f	2026-08-07 16:25:34.883	2026-08-07 16:24:12.995	2026-08-14 16:24:12.995	6141f1cf-0f11-4a9c-b7b9-e7dbcd3540c3
+3618	3	$2b$10$74gg0eZxau/Y2opAGADRFOYKLzoNGvfAvQGPSLo0aSCm8TGaMHcUm	Chrome on Windows 10	::1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36	f	2026-08-07 16:29:25.902	2026-08-07 16:29:25.902	2026-08-14 16:29:25.9	3901e5be-f355-4af3-8dae-88584210a554
+3619	3	$2b$10$LSggLFbNBf2Pq1.0eGYSI.0efzZDZpndhy0IC2vJfuAyUMcYJmpty	\N	\N	\N	f	2026-08-07 16:33:58.252	2026-08-07 16:29:26.233	2026-08-14 16:29:26.233	85dccef0-f1f3-466f-99de-895c4f521439
+3629	3	$2b$10$5e/ltemE6l9dII/O6zE.2eiFito0LcENhH33VXV8iw6E3DFtWni6.	\N	\N	\N	f	2026-08-07 16:51:03.364	2026-08-07 16:51:03.364	2026-08-14 16:51:03.364	e4a3e352-b1ea-4257-aae7-9668343bdbc2
+3621	3	$2b$10$.tJKwFHrDbwkI9wR42.0fuw.76.bzIvdwS2sQ14nnpC80juOFRnTO	\N	\N	\N	f	2026-08-07 16:37:11.389	2026-08-07 16:34:29.02	2026-08-14 16:34:29.02	4519e7a8-d4aa-4965-ab1e-b13d069700a4
+3623	3	$2b$10$zcrCJw8rY2nIFf.wTx/kQuxwWtJynutgqVpQwDS4KZRT591Cb2rTe	\N	\N	\N	f	2026-08-07 16:39:56.693	2026-08-07 16:38:09.607	2026-08-14 16:38:09.607	45e46dca-8360-4987-82b5-3d5089b3ca6d
+3554	3	$2b$10$dVsKmAU6bFDCr8iE6RVgvuGM64YbUBV0wNCxvdEke3T0mO/TCQfoW	\N	\N	\N	f	2026-08-07 14:45:39.842	2026-08-07 14:45:39.842	2026-08-14 14:45:39.842	1897c620-28ca-4f75-ab09-fbed90db0a68
+3557	3	$2b$10$kNAnzBlmncZ1CHSUSs4gEupKL7pNhgJbP/NwQOXkrvyRdMu0bSnqi	\N	\N	\N	f	2026-08-07 14:49:10.212	2026-08-07 14:49:10.212	2026-08-14 14:49:10.211	07b595d0-b98b-4081-8255-3104914adfc1
+3560	3	$2b$10$5mUvRGUWq5u216dc6Gepcu21bbFFlnTXe00Q8U2mRnKE.IJNeG56K	\N	\N	\N	f	2026-08-07 14:55:55.133	2026-08-07 14:53:06.059	2026-08-14 14:53:06.059	55e36541-6c0e-4e5c-bfc7-85beed8aafee
+3598	10	$2b$10$/RkyUTfu58umgMIBH9eN/uM2/A1ml.uUGWcdbIioQqGGcdl617vay	\N	\N	\N	f	2026-08-07 15:55:24.868	2026-08-07 15:55:24.868	2026-08-14 15:55:24.868	d2063200-547f-4f63-bb7c-80d1d9d3fbfb
+3563	3	$2b$10$Bew4vazdCNPbem/uo/GHSe7GMFmSHS1YqEjo6Wxq47lACgwaBt5Ei	\N	\N	\N	f	2026-08-07 15:03:59.395	2026-08-07 15:00:25.398	2026-08-14 15:00:25.398	9cdae6e9-5f6e-4cea-aef1-0441865a214a
+3566	3	$2b$10$185hTVfKkVQH7D2u0.W5xenphWuJnUVZy4hZrGOeRxckP4hGHpFxC	\N	\N	\N	f	2026-08-07 15:08:11.457	2026-08-07 15:08:11.457	2026-08-14 15:08:11.456	736b9105-620e-419c-a2d7-cc0d95de9ab5
+3568	3	$2b$10$YPKgqut61fWH04.ZMX9Z2OXOKz5eNpas3BALuRHn0jRy37Yfgfkji	\N	\N	\N	f	2026-08-07 15:12:13.3	2026-08-07 15:12:13.3	2026-08-14 15:12:13.294	72422832-6090-4174-a264-161987eefa63
+3569	3	$2b$10$qjv4sy0ne9IP.BcFU6wpr.bnknfCIS9lXWOqVK8m0X5h5cPykGOi2	\N	\N	\N	f	2026-08-07 15:15:03.069	2026-08-07 15:12:25.915	2026-08-14 15:12:25.915	e894402f-7922-4caa-b78f-7a3661c6a2e0
+3572	10	$2b$10$Ch6lrxwonFe9YnGqwr0fgeV676ObFrRIvEeBMuR4FkHXuSFFGrAzW	Chrome on Windows 10	::1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36	f	2026-08-07 15:16:15.199	2026-08-07 15:16:15.199	2026-08-14 15:16:15.198	96016cdc-ac6d-47fd-adbf-6ca8f5496799
+3599	10	$2b$10$9vuB4Z3dPzUUbYHYnWDrt.QxgxDJaFZ/RaSUEIMocwBfdqIrUvhfK	\N	\N	\N	f	2026-08-07 15:55:32.491	2026-08-07 15:55:32.491	2026-08-14 15:55:32.49	5fa68a3c-d498-4d1f-8521-251f805f21e8
+3573	10	$2b$10$Xrg7Y9GmeF/9fdAV7lN62ebNmCq5cnZEX7snUoSjsPSo1dRJBKWjO	\N	\N	\N	f	2026-08-07 15:19:25.57	2026-08-07 15:16:15.882	2026-08-14 15:16:15.882	e0aabceb-d407-4164-9234-ca46155a3183
+3576	10	$2b$10$orKQwUxb2TZjoMNnq7kzMerTFh4SmBowitdXpT.s5a8fKP3mtI2qG	\N	\N	\N	f	2026-08-07 15:28:34.827	2026-08-07 15:28:34.827	2026-08-14 15:28:34.827	3bd8f571-8f4d-407a-a615-1ab4c3921f07
+3579	10	$2b$10$DRPLyA5b2MramG.KaeM97eFcO929XTdaNyNm3lD.UN5jWyxGPmaMu	\N	\N	\N	f	2026-08-07 15:36:34.792	2026-08-07 15:36:34.792	2026-08-14 15:36:34.792	176223b4-4d6c-4608-8b11-12264c94f9be
+3580	10	$2b$10$Fe/y.VTCMe2hBagHwEzUG.nmCB3DrCP16knbZGND/l32fQBC1BS1W	\N	\N	\N	f	2026-08-07 15:36:38.577	2026-08-07 15:36:38.577	2026-08-14 15:36:38.576	56458085-b114-439a-947d-56f083460c71
+3582	10	$2b$10$YJBQHAvSl2e7cC1NuThXAe9SVvxeLTQW.sKQ9hej9cW5v461ucTla	\N	\N	\N	f	2026-08-07 15:39:11.571	2026-08-07 15:39:11.571	2026-08-14 15:39:11.558	78738a1f-d8ef-4ca6-80f7-d2a60c0ba206
+3585	10	$2b$10$U7eTLalDW/CQZr/Re4Wts.aNMWeKMz7WnkhJaFJznD6pvGx8unMg6	\N	\N	\N	f	2026-08-07 15:43:04.379	2026-08-07 15:43:04.379	2026-08-14 15:43:04.378	02820f9b-5547-40e8-9676-a354abb7fd98
+3600	10	$2b$10$ZdsfxuWe856m5qust/qqf.yix6t5jV2a5yJBnsjSbhtZycWFxhErG	\N	\N	\N	f	2026-08-07 15:55:39.485	2026-08-07 15:55:39.485	2026-08-14 15:55:39.485	d8faf426-95dc-4074-8854-614cd041350f
+3587	10	$2b$10$GeAuNh/JWU59Iqb/j/GrIeGj.sGcp.y.bF5VwTn3b0/bVLqp0JIzW	\N	\N	\N	f	2026-08-07 15:48:48.06	2026-08-07 15:47:36.348	2026-08-14 15:47:36.348	affe8fae-203d-428f-935c-024112f8618f
+3590	10	$2b$10$ulLVKdo31sKaDXdK.JvKMeZG5sG0J9Ibh.G9tProh0A8aObXUjIJC	\N	\N	\N	f	2026-08-07 15:50:53.577	2026-08-07 15:50:53.577	2026-08-14 15:50:53.577	8acbf105-3554-454d-bccf-3f453447d8f3
+3593	10	$2b$10$nJndI6U0rv15W7Ma.CU6sOAD43cUiRzer2BmJfMByNyeKXOY6D8HS	\N	\N	\N	f	2026-08-07 15:54:37.731	2026-08-07 15:54:37.731	2026-08-14 15:54:37.731	5dcdafc8-d665-41e4-bd37-167df4b096de
+3594	10	$2b$10$9MyuGROhgQ7szHnDKBj8uusgAuptRJAoUPQdDvYmcmn1jck50R3Fu	\N	\N	\N	f	2026-08-07 15:54:44.363	2026-08-07 15:54:44.363	2026-08-14 15:54:44.362	bde6ef17-2a7c-42ac-a0ba-cb206f42a2fe
+3595	10	$2b$10$16ei8uEyVA//5goXEgnCX.gXmlmBexl0QqBEhBx8SjQFVcICIlJBm	\N	\N	\N	f	2026-08-07 15:54:52.832	2026-08-07 15:54:52.832	2026-08-14 15:54:52.832	58beae70-3a02-4164-ad1c-d052d0f720e2
+3601	10	$2b$10$9FOlWKz3ANXhHyUdG48E/Or0OHpCB2vUcfo3A7olykIMpHt5Fas/q	\N	\N	\N	f	2026-08-07 15:55:41.198	2026-08-07 15:55:41.198	2026-08-14 15:55:41.198	054c4057-9570-495c-99f3-ccb1fbe711c4
+3602	10	$2b$10$Z/TIKz5BvA7NcX0WfYgGROBoEDQ8RxYVRUVmCjXc3m6bTZZmC1P1i	\N	\N	\N	f	2026-08-07 15:55:50.396	2026-08-07 15:55:50.396	2026-08-14 15:55:50.396	413a2911-ce78-4bf9-8504-bf3bca2cac24
+3605	10	$2b$10$j/9AIsATCOZiSEH/5u6gLODOzFLrfRjJ0WIlvAUqbN.2.Sq4N1afG	\N	\N	\N	f	2026-08-07 15:57:02.588	2026-08-07 15:57:02.588	2026-08-14 15:57:02.587	b77aa164-719f-4a38-8c4b-cee75444950a
+3607	10	$2b$10$Fazpj.yCkZmOVZb7kV9bC.Y8klgLjGBipm.zWKZzLlPc5gYQ1mtiy	\N	\N	\N	f	2026-08-07 16:06:14.882	2026-08-07 16:02:46.955	2026-08-14 16:02:46.955	931f5cbc-62cc-418f-991f-16272e567548
+3609	10	$2b$10$e4rcMwW58auc1tKVmwuQduELEJdGeLE/EJi2m8NPFtqREYHA9Wv4e	\N	\N	\N	f	2026-08-07 16:12:43.283	2026-08-07 16:12:43.283	2026-08-14 16:12:43.282	2a99aff7-e045-442b-8177-a0ce0bb11e74
+3612	10	$2b$10$Lc3g3P751ZBq0u4mHrtt6egZ.t3Xrvl3OdnQK/35f7VLcyPYaBxUa	\N	\N	\N	f	2026-08-07 16:14:46.119	2026-08-07 16:14:46.119	2026-08-14 16:14:46.119	64fdbf7f-a9ca-4026-a5a7-950a9dc9041f
+3613	10	$2b$10$YSzkJ9I6b1v5Yg0fBVo07u7.O75ExJ2xLCfngHPdiuGscoHxtNAfG	\N	\N	\N	f	2026-08-07 16:14:56.562	2026-08-07 16:14:56.562	2026-08-14 16:14:56.562	d712b3b4-3710-4acd-bf62-c21257dcc3f3
+3615	10	$2b$10$4BabVnekSzUqzMB22MEts.oJVRUGwP79iPVuk3uWaPAjoXjyqSJuy	\N	\N	\N	f	2026-08-07 16:23:29.716	2026-08-07 16:23:29.716	2026-08-14 16:23:29.716	4bd57005-bf0d-4a1c-bd67-019ba4ceb742
+3626	3	$2b$10$Yib4RiBISFXzsZnmPs07yeE52375.GsPaXARmQFrPGpwptNIraqky	\N	\N	\N	f	2026-08-07 16:41:37.485	2026-08-07 16:40:11.348	2026-08-14 16:40:11.348	cb36077b-87dd-4d2c-a897-afe9ae1483d1
+3617	10	$2b$10$S1HDEMKeNUIX/.evdEi6IOpNNKfKebmJmQ5T7xjbijgCzlVFz0t6G	\N	\N	\N	f	2026-08-07 16:28:42.154	2026-08-07 16:26:21.444	2026-08-14 16:26:21.443	c309bba4-f050-463b-86f8-0f6b5583698e
+3620	3	$2b$10$68h3MfHXyX9jFfcpV2TRDe1MXP9.LBceB/AcrXgrNs70U/qfNPWa2	\N	\N	\N	f	2026-08-07 16:34:00.841	2026-08-07 16:34:00.841	2026-08-14 16:34:00.841	01dd38d8-fb0f-42dd-9fa8-bd32bfa8db14
+3622	3	$2b$10$eiyiOPXNL3JzSJWLD70MvOO6LfqUeh6E/ajNUeI/xBchIb22bnbVy	\N	\N	\N	f	2026-08-07 16:37:56.924	2026-08-07 16:37:56.924	2026-08-14 16:37:56.924	44db5f5e-8b79-4f44-ac24-e6542b63a488
+3624	3	$2b$10$WIm1NJX2hKjcDdObWqqQZOHVOULM0biAfZpPQR8l38hgBRwntzau.	\N	\N	\N	f	2026-08-07 16:39:58.742	2026-08-07 16:39:58.742	2026-08-14 16:39:58.741	6d356634-cbe1-476c-a361-c028bcf6cc43
+3625	3	$2b$10$nGHUc6iSHO.Y/ZRyqchozuBgENKBSQ5xIkfX2SkIWSPCSie20.3aO	\N	\N	\N	f	2026-08-07 16:40:07.902	2026-08-07 16:40:07.902	2026-08-14 16:40:07.901	983c5f60-5ede-4e31-893b-37652e56dfcc
+3628	3	$2b$10$HriYA.mG7RwRlYFgDSBMsOmgqKUb2B5DFiSVC8Jz4EsIGYbEff.QK	\N	\N	\N	f	2026-08-07 16:50:54.885	2026-08-07 16:50:54.885	2026-08-14 16:50:54.885	7e579e89-ea27-4a86-9a7a-29b541ed882b
 \.
 
 
@@ -8787,7 +8713,7 @@ c778c177-86d5-47c4-a7a8-884bea8e9204	f6f55ee5225cd339db18722edcb3f16117e6f20b1d6
 -- Name: AuditLog_id_seq; Type: SEQUENCE SET; Schema: maintix; Owner: -
 --
 
-SELECT pg_catalog.setval('maintix."AuditLog_id_seq"', 1414, true);
+SELECT pg_catalog.setval('maintix."AuditLog_id_seq"', 1453, true);
 
 
 --
@@ -8927,7 +8853,7 @@ SELECT pg_catalog.setval('maintix."UserRole_id_seq"', 38, true);
 -- Name: UserSession_id_seq; Type: SEQUENCE SET; Schema: maintix; Owner: -
 --
 
-SELECT pg_catalog.setval('maintix."UserSession_id_seq"', 3550, true);
+SELECT pg_catalog.setval('maintix."UserSession_id_seq"', 3630, true);
 
 
 --
@@ -9761,5 +9687,5 @@ ALTER TABLE ONLY maintix."User"
 -- PostgreSQL database dump complete
 --
 
-\unrestrict BIiichV6Nm5sMD2OcSr9D0ajZ6YrO1O74Q13Bwsq9nrwcH2ZeXSvVfT9GL0UJUG
+\unrestrict uAbO9j0CBTY6HpjMF3OiH9vShAWefZbTOUuyYRJ7sHuQnUH3VzdSrmyEnBgeHwY
 

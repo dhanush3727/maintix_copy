@@ -28,7 +28,7 @@ import { useRouter } from "next/navigation";
 import { ROUTES } from "@/constants";
 import { AUTH_CONTENT, LOGIN_CONTENT } from "../constatnts/auth.constants";
 import { getRedirectPath } from "../utils/auth.utils";
-import { getDeviceInfo } from "@/lib/utils";
+import { cn, getDeviceInfo } from "@/lib/utils";
 import { appToast } from "@/lib/toast";
 import { useState } from "react";
 import axios from "axios";
@@ -184,7 +184,12 @@ export function LoginForm({ redirect }: LoginProps) {
 
         <div className="text-center text-xs flex gap-2 mb-3 justify-center text-primary sm:text-sm">
           <p className="text-muted-foreground">{AUTH_CONTENT.NEW_ACCOUNT}</p>
-          <Link href={ROUTES.REGISTER}>{AUTH_CONTENT.REGISTER}</Link>
+          <Link
+            href={ROUTES.REGISTER}
+            className={cn(loginMutation.isPending && "pointer-events-none")}
+          >
+            {AUTH_CONTENT.REGISTER}
+          </Link>
         </div>
 
         <div className="text-xs text-center text-muted-foreground sm:text-sm">

@@ -4,7 +4,12 @@ export const metadata = {
 };
 
 import { CheckEmail } from "@/features/auth";
+import { Suspense } from "react";
 
 export default function CheckEmailPage() {
-  return <CheckEmail />;
+  return (
+    <Suspense fallback={null}>
+      <CheckEmail />
+    </Suspense>
+  );
 }

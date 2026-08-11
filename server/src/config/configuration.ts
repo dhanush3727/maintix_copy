@@ -22,5 +22,6 @@ export default () => ({
   },
   client: {
     url: process.env.CLIENT_URL,
+    frontend_url: process.env.FRONTEND_URL,
   },
 });

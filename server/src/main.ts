@@ -14,11 +14,12 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const port = configService.get<number>('app.port') || 5000;
+  const frontendUrl = configService.get<string>('client.frontend_url');
 
   app.use(cookieParser());
 
   app.enableCors({
-    origin: true,
+    origin: frontendUrl,
     credentials: true,
   });
 

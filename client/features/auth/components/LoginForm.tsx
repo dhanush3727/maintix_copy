@@ -192,7 +192,13 @@ export function LoginForm({ redirect }: LoginProps) {
           </Link>
         </div>
 
-        <div className="text-xs text-center text-muted-foreground sm:text-sm">
+        <div
+          className={cn(
+            loginMutation.isPending &&
+              "text-xs text-center text-muted-foreground sm:text-sm",
+          )}
+          aria-disabled={loginMutation.isPending}
+        >
           <Link href={ROUTES.FORGOT_PASSWORD}>
             {AUTH_CONTENT.FORGOT_PASSWORD}
           </Link>

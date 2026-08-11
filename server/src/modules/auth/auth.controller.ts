@@ -55,7 +55,8 @@ export class AuthController {
     // Set refresh token in cookie
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      // sameSite: 'none',
+      secure: true,
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7days
     });
 
@@ -111,7 +112,7 @@ export class AuthController {
     res.cookie('refreshToken', result.refreshToken, {
       httpOnly: true,
       secure: true,
-      // sameSite: 'none',
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7days
     });
 

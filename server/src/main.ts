@@ -16,10 +16,12 @@ async function bootstrap() {
   const port = configService.get<number>('app.port') || 5000;
   const frontendUrl = configService.get<string>('client.frontend_url');
 
+  console.log('frontend url', frontendUrl);
+
   app.use(cookieParser());
 
   app.enableCors({
-    origin: frontendUrl,
+    origin: 'https://maintix-copy-ovte.vercel.app',
     credentials: true,
   });
 

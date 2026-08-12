@@ -194,8 +194,8 @@ export function LoginForm({ redirect }: LoginProps) {
 
         <div
           className={cn(
-            loginMutation.isPending &&
-              "text-xs text-center text-muted-foreground sm:text-sm",
+            "text-xs text-center text-muted-foreground sm:text-sm",
+            loginMutation.isPending && "pointer-events-none",
           )}
           aria-disabled={loginMutation.isPending}
         >

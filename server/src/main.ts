@@ -21,7 +21,7 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    origin: 'https://maintix-copy.vercel.app',
+    origin: frontendUrl,
     credentials: true,
   });
 

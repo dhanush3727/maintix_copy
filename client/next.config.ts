@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://maintix-copy.onrender.com/:path*",
+        destination: "https://maintix-copy.onrender.com/api/:path*",
       },
     ];
   },

@@ -8,7 +8,7 @@ import { Suspense } from "react";
 
 export default function ResetPasswordPage() {
   return (
-    <Suspense>
+    <Suspense fallback={null}>
       <ResetPassword />
     </Suspense>
   );

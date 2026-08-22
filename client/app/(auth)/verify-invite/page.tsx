@@ -7,7 +7,7 @@ import { Suspense } from "react";
 
 export default function AcceptInvitationPage() {
   return (
-    <Suspense>
+    <Suspense fallback={null}>
       <VerifyInvitation />
     </Suspense>
   );
